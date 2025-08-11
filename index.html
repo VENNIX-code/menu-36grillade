@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>36 Grillade & Chill — Menu</title>
+<meta name="description" content="Découvrez le menu complet de 36 Grillade & Chill : burgers, grillades, wraps et plus. Commandez facilement en ligne ou sur place !" />
+
+<!-- Open Graph / WhatsApp Preview -->
+<meta property="og:title" content="36 Grillade & Chill — Menu" />
+<meta property="og:description" content="Burgers, grillades, wraps... Commandez en ligne ou sur place !" />
+<meta property="og:image" content="https://i.imgur.com/Wb0e6yG.jpg" />
+<meta property="og:url" content="https://ton-lien-menu.com" />
+<meta property="og:type" content="website" />
+
+<!-- Favicon (temporaire, remplace quand tu veux) -->
+<link rel="icon" href="https://i.imgur.com/kYb4eZC.png" type="image/png" />
+
+<!-- Police -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{--orange:#FF6600;--black:#0b0b0b;--muted:#666;--bg:#fffdfa;--maxw:900px;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Poppins",sans-serif;background:var(--bg);color:var(--black);-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:14px 12px 120px;}
+  header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+  .logo{width:56px;height:56px;background:var(--orange);color:white;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center;border-radius:10px;box-shadow:0 6px 18px rgba(255,102,0,0.12);}
+  .brand h1{margin:0;font-size:18px} .brand p{margin:4px 0 0;font-size:12px;color:var(--muted);}
+  .searchbar{display:flex;gap:8px;margin:12px 0;}
+  .searchbar input{flex:1;padding:10px;border-radius:10px;border:1px solid #e6e6e6;outline:none;transition:box-shadow .15s,border-color .15s;}
+  .searchbar input:focus{border-color:var(--orange);box-shadow:0 4px 18px rgba(255,102,0,0.08);}
+  .section-head{padding:10px 8px;background:white;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;font-size:16px;color:var(--orange);font-weight:600;position:sticky;top:0;z-index:3;}
+  .item{padding:12px 8px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;background:white;transition:transform .12s,box-shadow .12s;}
+  .item + .item{margin-top:0}
+  .item:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(11,11,11,0.03);background:linear-gradient(180deg,#fff #fff7f0);}
+  .leftcol{display:flex;flex-direction:column;gap:6px;}
+  .item .desc{font-size:13px;color:var(--muted);}
+  .price{font-weight:600;color:var(--orange);white-space:nowrap;}
+  .bottom{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:white;padding:10px;border-radius:10px;display:flex;gap:12px;align-items:center;border:1px solid #eee;box-shadow:0 8px 30px rgba(11,11,11,0.08);}
+  .qrbox{width:64px;height:64px;background:#fafafa;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f0f0f0;}
+  .qrbox img{width:56px;height:56px;display:block;}
+  @media (max-width:600px){
+    .wrap{padding:12px 10px 140px;}
+    .section-head{font-size:15px;padding:10px;}
+    .item{padding:10px;}
+    .bottom{width:calc(100% - 28px);left:14px;transform:none;border-radius:8px;}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">36</div>
+      <div class="brand">
+        <h1>36 Grillade & Chill</h1>
+        <p>Mobile-first • Scan & commandez</p>
+      </div>
+    </header>
+
+    <div class="searchbar">
+      <input id="search" type="search" placeholder="Rechercher un plat…" aria-label="Rechercher un plat" />
+    </div>
+
+    <main id="menu" aria-live="polite"></main>
+  </div>
+
+  <!-- Bottom fixed: uniquement QR (pas de bouton inutile) -->
+  <div class="bottom" role="contentinfo" aria-label="QR code du menu">
+    <div style="font-size:13px;color:#444;">Scannez le QR pour ouvrir le menu</div>
+    <div class="qrbox"><img id="qrImg" alt="QR code du menu" /></div>
+  </div>
+
+  <script>
+    // --- MENU_DATA : exactement comme tu l'avais donné, rien n'a été modifié ---
+    const MENU_DATA = [
+      { category:"Sandwiches & Wraps", items:[
+        {name:"Sandwich Poulet Grillé", desc:"Poulet mariné, salade, tomate, sauce maison", price:"650 DA"},
+        {name:"Sandwich Steak", desc:"Steak, cheddar, oignons, sauce grill", price:"750 DA"},
+        {name:"Sandwich Mix", desc:"Poulet + steak, cheddar, légumes", price:"900 DA"},
+        {name:"Wrap Poulet César", desc:"Poulet, parmesan, sauce césar", price:"700 DA"},
+        {name:"Wrap Fromage", desc:"Mélange de fromages fondus, légumes", price:"600 DA"}
+      ]},
+      { category:"Burgers", items:[
+        {name:"Classic Burger", desc:"Steak haché 150 g, cheddar, tomate, salade, sauce 36", price:"900 DA"},
+        {name:"Cheese Lover", desc:"Steak, double cheddar, pickles", price:"1100 DA"},
+        {name:"Bacon BBQ", desc:"Steak, bacon croustillant, sauce BBQ", price:"1200 DA"},
+        {name:"Big Grill (Double)", desc:"Double steak, bacon, oignons caramélisés", price:"1600 DA"},
+        {name:"Végé Burger", desc:"Galette légumes, salade, sauce maison", price:"800 DA"}
+      ]},
+      { category:"Tortillas", items:[
+        {name:"Tortilla Poulet", desc:"Poulet grillé, légumes, sauce maison", price:"700 DA"},
+        {name:"Tortilla Mix", desc:"Poulet + steak, cheddar, légumes", price:"900 DA"},
+        {name:"Tortilla Fromage", desc:"Fromage fondu, légumes", price:"650 DA"}
+      ]},
+      { category:"Grillades & Plats", items:[
+        {name:"Steak Frites", desc:"Steak grillé, frites maison, salade", price:"2500 DA"},
+        {name:"Entrecôte Grillée", desc:"Entrecôte 300 g, beurre maison", price:"3200 DA"},
+        {name:"Escalope Grillée", desc:"Escalope marinée, légumes grillés", price:"1100 DA"},
+        {name:"Poulet Braise (½)", desc:"Poulet rôti à la braise, frites", price:"1200 DA"},
+        {name:"Mixed Grill (2 pers.)", desc:"Assortiment de viandes grillées", price:"5800 DA"}
+      ]},
+      { category:"Pâtes & Risottos", items:[
+        {name:"Pâtes Bolognaise", desc:"Bolognaise maison, parmesan", price:"900 DA"},
+        {name:"Pâtes Crème Poulet Champignons", desc:"Crème, poulet, champignons", price:"900 DA"},
+        {name:"Pâtes Carbonara", desc:"Pancetta, œuf, parmesan", price:"950 DA"}
+      ]},
+      { category:"Salades", items:[
+        {name:"Salade César", desc:"Laitue, poulet, croûtons, parmesan", price:"600 DA"},
+        {name:"Salade Tomate-Mozza", desc:"Mozzarella, tomates, pesto", price:"500 DA"},
+        {name:"Salade Mix Grill", desc:"Salade verte, tranches de poulet/grill", price:"750 DA"}
+      ]},
+      { category:"Accompagnements", items:[
+        {name:"Frites Maison", desc:"Portion généreuse", price:"350 DA"},
+        {name:"Salade Simple", desc:"Petite salade verte", price:"250 DA"},
+        {name:"Légumes Grillés", desc:"Assortiment légumes saison", price:"300 DA"}
+      ]},
+      { category:"Boissons", items:[
+        {name:"Soda 330 ml", desc:"Canette", price:"150 DA"},
+        {name:"Eau 500 ml", desc:"Bouteille", price:"100 DA"},
+        {name:"Jus Maison", desc:"Pressé du jour", price:"250 DA"},
+        {name:"Cocktail Maison", desc:"Création du chef", price:"400 DA"}
+      ]},
+      { category:"Desserts", items:[
+        {name:"Tiramisu Maison", desc:"Portion", price:"350 DA"},
+        {name:"Gourmandise du Jour", desc:"Demandez au serveur", price:"250 DA"},
+        {name:"Crème Brûlée", desc:"Classique", price:"300 DA"}
+      ]}
+    ];
+
+    // --- Helpers pour recherche (insensible à la casse) ---
+    const normalize = s => (s || '').toString().toLowerCase();
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function highlightSimple(text, filter) {
+      if (!filter) return escapeHtml(text);
+      try {
+        const esc = filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const re = new RegExp(esc, 'ig');
+        return escapeHtml(text).replace(re, match => `<mark style="background: #fff59d; padding:0 2px;border-radius:2px">${match}</mark>`);
+      } catch (e) {
+        return escapeHtml(text);
+      }
+    }
+
+    const menuEl = document.getElementById('menu');
+    const searchEl = document.getElementById('search');
+
+    function render(filter = '') {
+      const f = normalize(filter.trim());
+      menuEl.innerHTML = '';
+
+      MENU_DATA.forEach(sec => {
+        const filtered = sec.items.filter(it => {
+          const txt = normalize(it.name + ' ' + it.desc + ' ' + it.price);
+          return !f || txt.includes(f);
+        });
+        if (!filtered.length) return;
+
+        const secDiv = document.createElement('div');
+
+        const head = document.createElement('div');
+        head.className = 'section-head';
+        head.innerText = sec.category + ' (' + filtered.length + ')';
+        secDiv.appendChild(head);
+
+        filtered.forEach(it => {
+          const item = document.createElement('div');
+          item.className = 'item';
+
+          const left = document.createElement('div');
+          left.className = 'leftcol';
+
+          const name = document.createElement('div');
+          name.innerHTML = highlightSimple(it.name, filter);
+
+          const desc = document.createElement('div');
+          desc.className = 'desc';
+          desc.innerHTML = highlightSimple(it.desc, filter);
+
+          left.appendChild(name);
+          left.appendChild(desc);
+
+          const price = document.createElement('div');
+          price.className = 'price';
+          price.innerText = it.price;
+
+          item.appendChild(left);
+          item.appendChild(price);
+          secDiv.appendChild(item);
+        });
+
+        menuEl.appendChild(secDiv);
+      });
+    }
+
+    // initial render
+    render();
+
+    // update on input
+    searchEl.addEventListener('input', e => render(e.target.value));
+
+    // --- QR code generation ---
+    // Remplace ce lien par ton lien final une fois déployé (Vercel ou autre).
+    // Exemple : const menuLink = "https://menu-36grillade.vercel.app";
+    const menuLink = "https://ton-lien-menu.com"; // <-- change this when ready
+    document.getElementById('qrImg').src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(menuLink);
+  </script>
+</body>
+</html>
+
+
+
+
+
