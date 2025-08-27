@@ -65,11 +65,11 @@
     <main id="menu" aria-live="polite"></main>
   </div>
 
-  <!-- Bottom fixed: uniquement QR (pas de bouton inutile) -->
-  <div class="bottom" role="contentinfo" aria-label="QR code du menu">
+  <!-- Bottom fixed: uniquement QR (pas de bouton inutile) <div class="bottom" role="contentinfo" aria-label="QR code du menu">
     <div style="font-size:13px;color:#444;">Scannez le QR pour ouvrir le menu</div>
     <div class="qrbox"><img id="qrImg" alt="QR code du menu" /></div>
-  </div>
+  </div>-->
+  
 
   <script>
     // --- MENU_DATA : exactement comme tu l'avais donné, rien n'a été modifié ---
@@ -209,10 +209,7 @@
     // --- QR code generation ---
     // Remplace ce lien par ton lien final une fois déployé (Vercel ou autre).
     // Exemple : const menuLink = "https://menu-36grillade.vercel.app";
-    const menuLink = "https://menu-36grillade.vercel.app";
- // <-- change this when ready
-    document.getElementById('qrImg').src =
-      "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(menuLink);
+    
   </script>
 </body>
 </html>
